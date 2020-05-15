@@ -118,7 +118,7 @@ function validar_identificacion($tipo, $valor) {
     # cualquier otro se entiende como pasaporte o documento del exterior y no necesita validación 
     if (in_array($tipo, [ 'cedula', 'ruc' ] )) {
 
-        require_once (plugin_dir_path (__FILE__). '/librerías/validador-identificacion/validador.php
+        require_once plugin_dir_path (__FILE__). '/librerías/validador-identificacion/validador.php';
         $validador = new Validador();
         $len = strlen($valor);
 
