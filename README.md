@@ -51,7 +51,7 @@ require_once (plugin_dir_path (__FILE__). '/librerías/validador-identificacion/
 
 ## Uso de la librería
 
-Una vez cargada la librearía se deberá crear una instancia de la misma para poder usarla. 
+Una vez cargada la librería se deberá crear una instancia de la misma para poder usarla. 
 
 ```
 $validador = new Validador('mi-plugin');
@@ -61,8 +61,8 @@ La variable que se envía es el dominio de "text-domain" usado para internaciona
 
 Para más información sobre internacionalización de plugins visitar la documentación de WordPress:
 
- - [Internationalization](https://developer.wordpress.org/themes/functionality/internationalization/)
- - [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
+ * [Internationalization](https://developer.wordpress.org/themes/functionality/internationalization/)
+ * [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
 
 Con la instancia de la librería lista, ya se puede validar las identificaciones
 
@@ -119,7 +119,7 @@ function validar_identificacion($tipo, $valor) {
     if (in_array($tipo, [ 'cedula', 'ruc' ] )) {
 
         require_once plugin_dir_path (__FILE__). '/librerías/validador-identificacion/validador.php';
-        $validador = new Validador();
+        $validador = new Validador($plugin_name);
         $len = strlen($valor);
 
         # Si la longitud de los datos es igual a 10, verificar una cédula
