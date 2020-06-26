@@ -45,7 +45,7 @@ git subtree pull --prefix librerías/validador-identificacion subtree-validador-
 Independientemente de cómo se instale, para cargar la librería, solo se necesita incluir el archivo validador.php.
 
 ```
-<? php
+<?php
 require_once (plugin_dir_path (__FILE__). '/librerías/validador-identificacion/validador.php
 ```
 
