@@ -96,7 +96,6 @@ if( !class_exists('Validador') ) {
             try {
                 $this->validar_inicial($numero, '10');
                 $this->validar_codigo_provincia(substr($numero, 0, 2));
-                $this->validar_tercer_digito($numero[2], 'cedula');
                 $this->algoritmo_modulo_10(substr($numero, 0, 9), $numero[9]);
             }
             catch (Exception $exception) {
@@ -263,27 +262,11 @@ if( !class_exists('Validador') ) {
          */
         private function validar_tercer_digito($numero, $tipo)
         {
-            switch ($tipo) {
-                case 'cedula':
-                case 'ruc_natural':
-                    if ($numero < 0 or $numero > 5) {
-                        throw new Exception( __('Tercer dígito debe ser mayor o igual a 0 y menor a 6 para cédulas y RUC de persona natural', $this->text_domain) );
-                    }
-                    break;
-                case 'ruc_privada':
-                    if ($numero != 9) {
-                        throw new Exception( __('Tercer dígito debe ser igual a 9 para sociedades privadas', $this->text_domain) );
-                    }
-                    break;
-
-                case 'ruc_publica':
-                    if ($numero != 6) {
-                        throw new Exception( __('Tercer dígito debe ser igual a 6 para sociedades públicas', $this->text_domain) );
-                    }
-                    break;
-                default:
-                    throw new Exception( __('Tipo de Identificación no existe.', $this->text_domain) );
-                    break;
+            if ($tipo == 'ruc_privada' && $numero != 9) {
+                throw new Exception( __('Tercer dígito debe ser igual a 9 para sociedades privadas', $this->text_domain) );
+            }
+            elseif ($tipo == 'ruc_publica' && $numero != 6) {
+                throw new Exception( __('Tercer dígito debe ser igual a 6 para sociedades públicas', $this->text_domain) );
             }
         }
 
