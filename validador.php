@@ -242,10 +242,7 @@ if( !class_exists('Validador') ) {
          *
          * Permite validad el tercer dígito del documento. Dependiendo
          * del campo tipo (tipo de identificación) se realizan las validaciones.
-         * Los posibles valores del campo tipo son: cedula, ruc_natural, ruc_privada
-         *
-         * Para Cédulas y RUC de personas naturales el tercer dígito debe
-         * estar entre 0 y 5 (0,1,2,3,4,5)
+         * Los posibles valores del campo tipo son: ruc_privada y ruc_publica
          *
          * Para RUC de sociedades privadas el tercer dígito debe ser
          * igual a 9.
