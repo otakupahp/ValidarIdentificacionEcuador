@@ -125,7 +125,6 @@ if( !class_exists('Validador') ) {
             try {
                 $this->validar_inicial($numero, '13');
                 $this->validar_codigo_provincia(substr($numero, 0, 2));
-                $this->validar_tercer_digito($numero[2], 'ruc_natural');
                 $this->validar_codigo_establecimiento(substr($numero, 10, 3));
                 $this->algoritmo_modulo_10(substr($numero, 0, 9), $numero[9]);
             }
