@@ -122,22 +122,19 @@ function validar_identificacion($tipo, $valor) {
         $validador = new Validador($plugin_name);
 
         # Verificar una cédula
-        if ($tipo == 'cedula') {
-            if (!$validador->validar_cedula($valor)) {
-                throw new Exception( sprintf( __( 'Cédula incorrecta: %s', $plugin_name ), $validador->get_error() ) );
-            }
+        if ($tipo === 'cedula' && !$validador->validar_cedula($valor)) {
+            throw new Exception( sprintf( __( 'Cédula incorrecta: %s', $plugin_name ), $validador->get_error() ) );
         }
         # Verificar un ruc
-        elseif ($len == 13 && $tipo == 'ruc') {
-            if (
-                !(
-                    $validador->validar_ruc_persona_natural($valor) || 
-                    $validador->validar_ruc_sociedad_privada($valor) || 
-                    $validador->validar_ruc_sociedad_publica($valor)
-                )
-            ) {
-                throw new Exception( sprintf( __( 'RUC incorrecto: %s', $plugin_name ), $validador->get_error() ) );
-            }
+        elseif (
+            $tipo === 'ruc' &&
+            !(
+                $validador->validar_ruc_persona_natural($valor) || 
+                $validador->validar_ruc_sociedad_privada($valor) || 
+                $validador->validar_ruc_sociedad_publica($valor)
+            )
+        ) {
+            throw new Exception( sprintf( __( 'RUC incorrecto: %s', $plugin_name ), $validador->get_error() ) );
         }
     }
 }
