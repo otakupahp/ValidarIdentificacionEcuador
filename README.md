@@ -68,28 +68,35 @@ Con la instancia de la librería lista, ya se puede validar las identificaciones
 
 ```
 # validar CI
-if ($validador->validarCedula('0926687856')) {
+if ($validador->validar_cedula('0926687856')) {
     echo 'Cédula válida';
 } else {
     echo 'Cédula incorrecta: '.$validador->getMessage();
 }
 
+# validar cualquier RUC
+if ($validador->validar_ruc('0926687856001')) {
+    echo 'RUC válido';
+} else {
+    echo 'RUC incorrecto: '.$validador->getMessage();
+}
+
 # validar RUC persona natural
-if ($validador->validarRucPersonaNatural('0926687856001')) {
+if ($validador->validar_ruc_persona_natural('0926687856001')) {
     echo 'RUC válido';
 } else {
     echo 'RUC incorrecto: '.$validador->getMessage();
 }
 
 # validar RUC sociedad privada
-if ($validador->validarRucSociedadPrivada('0992397535001')) {
+if ($validador->validar_ruc_sociedad_privada('0992397535001')) {
     echo 'RUC válido';
 } else {
     echo 'RUC incorrecto: '.$validador->getMessage();
 }
 
 # validar RUC sociedad ublica
-if ($validador->validarRucSociedadPublica('1760001550001')) {
+if ($validador->validar_ruc_sociedad_publica('1760001550001')) {
     echo 'RUC válido';
 } else {
     echo 'RUC incorrecto: '.$validador->getMessage();
@@ -126,14 +133,7 @@ function validar_identificacion($tipo, $valor) {
             throw new Exception( sprintf( __( 'Cédula incorrecta: %s', $plugin_name ), $validador->get_error() ) );
         }
         # Verificar un ruc
-        elseif (
-            $tipo === 'ruc' &&
-            !(
-                $validador->validar_ruc_persona_natural($valor) || 
-                $validador->validar_ruc_sociedad_privada($valor) || 
-                $validador->validar_ruc_sociedad_publica($valor)
-            )
-        ) {
+        elseif ($tipo === 'ruc' && !$validador->validar_ruc($valor)) {
             throw new Exception( sprintf( __( 'RUC incorrecto: %s', $plugin_name ), $validador->get_error() ) );
         }
     }
