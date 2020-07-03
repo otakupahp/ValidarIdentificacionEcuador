@@ -122,13 +122,13 @@ function validar_identificacion($tipo, $valor) {
         $validador = new Validador($plugin_name);
         $len = strlen($valor);
 
-        # Si la longitud de los datos es igual a 10, verificar una cédula
-        if ($len == 10 && $tipo == 'cedula') {
+        # Verificar una cédula
+        if ($tipo == 'cedula') {
             if (!$validador->validar_cedula($valor)) {
                 throw new Exception( sprintf( __( 'Cédula incorrecta: %s', $plugin_name ), $validador->get_error() ) );
             }
         }
-        # Si la longitud de los datos es igual a 13, verificar un ruc
+        # Verificar un ruc
         elseif ($len == 13 && $tipo == 'ruc') {
             if (
                 !(
@@ -139,12 +139,6 @@ function validar_identificacion($tipo, $valor) {
             ) {
                 throw new Exception( sprintf( __( 'RUC incorrecto: %s', $plugin_name ), $validador->get_error() ) );
             }
-        }
-        # Si la longitud es diferente, verificar el tipo enviado para enviar mensaje de error
-        elseif ($tipo == 'cedula') {
-            throw new Exception( __( 'Ingresa una cédula correcta', $plugin_name ) );
-        } elseif ($tipo == 'ruc') {
-            throw new Exception( __( 'Ingresa un ruc correcto', $plugin_name ) );
         }
     }
 }
