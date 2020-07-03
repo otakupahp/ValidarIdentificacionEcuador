@@ -120,7 +120,6 @@ function validar_identificacion($tipo, $valor) {
 
         require_once plugin_dir_path (__FILE__). '/librerías/validador-identificacion/validador.php';
         $validador = new Validador($plugin_name);
-        $len = strlen($valor);
 
         # Verificar una cédula
         if ($tipo == 'cedula') {
