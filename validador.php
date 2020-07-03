@@ -41,10 +41,11 @@ if( !class_exists('Validador') ) {
      *
      * Los métodos públicos para realizar validaciones son:
      *
-     * validar_identificacion()
      * validar_cedula()
+     * validar_ruc()
      * validar_ruc_persona_natural()
      * validar_ruc_sociedad_privada()
+     * validar_ruc_sociedad_publica()
      */
     final class Validador
     {
@@ -54,17 +55,16 @@ if( !class_exists('Validador') ) {
          *
          * Contiene errores globales de la clase
          *
-         * @var string
          * @access protected
+         * @var string
          */
         private $error = '';
 
         /**
-         * The text domain used for internationalization
+         * Texto usado para la internacionalización
          *
-         * @since    2.0.0
          * @access   protected
-         * @var      string $text_domain The string used to uniquely identify this plugin.
+         * @var      string $text_domain
          */
         protected $text_domain;
 
@@ -105,6 +105,27 @@ if( !class_exists('Validador') ) {
 
             return true;
         }
+
+	    /**
+	     * Validar cualquier RUC
+	     *
+	     * @param string $numero Número de RUC
+	     *
+	     * @return Boolean
+	     */
+	    public function validar_ruc($numero = '')
+	    {
+	    	$result = (
+	    		$this->validar_ruc_persona_natural($numero) ||
+			    $this->validar_ruc_sociedad_privada( $numero ) ||
+			    $this->validar_ruc_sociedad_publica( $numero ) );
+
+		    if(!$result) {
+			    $this->set_error(__('RUC inválido', $this->text_domain) );
+		    }
+
+		    return $result;
+	    }
 
         /**
          * Validar RUC persona natural
@@ -433,7 +454,7 @@ if( !class_exists('Validador') ) {
             }
 
             if ($resultado != $digito_verificador) {
-                throw new Exception( __('Dígitos iniciales no validan contra Dígito Idenficador', $this->text_domain) );
+                throw new Exception( __('Dígitos iniciales no validan contra Dígito Identificador', $this->text_domain) );
             }
         }
 
